@@ -1,11 +1,12 @@
 # react-ts-favorite-episode
+with React, React Hocks, Context and TypeScript
 
 ## Description
 
 
-**_DEMO:_**
+<!-- **_DEMO:_**
 
-<img src="./img/190901todo.gif">
+<img src="./img/190901todo.gif"> -->
 
 ## Usage / Install
 
@@ -24,6 +25,7 @@ $ npm start
 
 - TypeScript
 - React hocks
+- Context
 
 ## Author
 
