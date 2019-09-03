@@ -41,6 +41,10 @@ export default function App(): JSX.Element {
     return dispatch(dispatchObj);
   };
 
+  const zeroOrOneFavorite = <p>Favorite: {state.favorites.length}</p>;
+
+  const moreThanOneFavorites = <p>Favorites: {state.favorites.length}</p>;
+
   console.log(state);
   return (
     <React.Fragment>
@@ -50,7 +54,9 @@ export default function App(): JSX.Element {
           <p>Pick your favorite episode!</p>
         </div>
         <div>
-          <p>Favorite(s): {state.favorites.length}</p>
+          {state.favorites.length < 2
+            ? zeroOrOneFavorite
+            : moreThanOneFavorites}
         </div>
       </header>
       <section className='episode-layout'>
