@@ -1,19 +1,6 @@
 import React from 'react';
 import { Store } from './Store';
-
-interface IEpisode {
-  airdate: string;
-  airstamp: string;
-  airtime: string;
-  id: number;
-  image: { medium: string; original: string };
-  name: string;
-  number: number;
-  runtime: number;
-  season: number;
-  summary: string;
-  url: string;
-}
+import { IEpisode, IAction } from './interfaces';
 
 export default function App(): JSX.Element {
   const { state, dispatch } = React.useContext(Store);
@@ -33,6 +20,27 @@ export default function App(): JSX.Element {
     });
   };
 
+  const toggleFavAction = (episode: IEpisode): IAction => {
+    // Check if the chooses episode is already exist in state.favorites
+    // Won't duplicate add to same episode in state.favorites
+    // Will remove from existing state.favorites
+    const episodeInFav = state.favorites.includes(episode);
+    let dispatchObj = {
+      type: 'ADD_FAV',
+      payload: episode
+    };
+    if (episodeInFav) {
+      const favWithoutEpisode = state.favorites.filter(
+        (fav: IEpisode) => fav.id !== episode.id
+      );
+      dispatchObj = {
+        type: 'REMOVE_FAV',
+        payload: favWithoutEpisode
+      };
+    }
+    return dispatch(dispatchObj);
+  };
+
   console.log(state);
   return (
     <React.Fragment>
@@ -50,7 +58,13 @@ export default function App(): JSX.Element {
               />
               <div>{episode.name}</div>
               <section>
-                Season: {episode.season} Number: {episode.number}
+                <div>
+                  Season: {episode.season} Number: {episode.number}
+                </div>
+                <button type='button' onClick={() => toggleFavAction(episode)}>
+                  {state.favorites.includes(episode) ? 'Remove' : 'Favorite'}
+                  {/* {state.favorites.find((fav:IEpisode) => fav.id === episode.id)? "Unfav": 'Fav'} */}
+                </button>
               </section>
             </section>
           );
