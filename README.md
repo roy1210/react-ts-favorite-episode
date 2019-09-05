@@ -26,6 +26,7 @@ $ npm start
 - TypeScript
 - React hocks
 - Context
+- Reach router
 - TVmaza API
 
 ## Author

@@ -14,12 +14,18 @@ export interface IAction {
   payload: any;
 }
 
+export interface IEpisodeProps {
+  episodes: Array<IEpisode>;
+  toggleFavAction: (episode: IEpisode) => IAction;
+  favorites: Array<IEpisode>;
+}
+
 export interface IEpisode {
   airdate: string;
   airstamp: string;
   airtime: string;
   id: number;
-  image: { medium: string; original: string };
+  image: {medium: string; original: string};
   name: string;
   number: number;
   runtime: number;
