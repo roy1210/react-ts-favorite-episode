@@ -1,9 +1,24 @@
 import React from 'react';
+import { Store } from './Store';
+import { IEpisodeProps } from './interfaces';
+import { toggleFavAction } from './Actions';
 
-export default function FavPage() {
+const EpisodeList = React.lazy<any>(() => import('./EpisodesList'));
+
+export default function FavPage(): JSX.Element {
+  const { state, dispatch } = React.useContext(Store);
+
+  const props: IEpisodeProps = {
+    episodes: state.favorites,
+    store: { state, dispatch },
+    toggleFavAction,
+    favorites: state.favorites
+  };
   return (
-    <div>
-      <h1>test</h1>
-    </div>
+    <React.Suspense fallback={<div>loading...</div>}>
+      <div className='episode-layout'>
+        <EpisodeList {...props} />
+      </div>
+    </React.Suspense>
   );
 }
